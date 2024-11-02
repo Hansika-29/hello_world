@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / Register</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>MY SCOOP!</h1>
+        <h2>Login / Register</h2>
+    </header>
+    <main>
+        <form id="login-form">
+            <label for="username">Username:</label>
+            <input type="text" id="username" required placeholder="Enter your username">
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" required placeholder="Enter your password">
+            
+            <button type="submit">Login</button>
+            <a href="create-acct.html">
+            <button type="button" id="create-account">Create Account</button>
+            </a>
+        </form>
+        <div id="message" style="color: red;"></div>
+    </main>
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value.trim();
+
+    const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
+    const existingPasswords = JSON.parse(localStorage.getItem('passwords')) || [];
+
+    // Check if the username exists and if the password matches
+    const userIndex = existingUsers.indexOf(username);
+    if (userIndex !== -1 && existingPasswords[userIndex] === password) {
+        // Successful login logic here
+    } else {
+        document.getElementById('message').textContent = "Invalid username or password.";
+    }
+});
+
+    </script>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a; /* Dark background */
+            color: #f0f0f0; /* Light text color */
+        }
+
+        header {
+            background: #333; /* Dark grey */
+            color: #f0f0f0; /* Light text color */
+            padding: 20px;
+            text-align: center;
+        }
+
+        main {
+            padding: 20px;
+            max-width: 400px;
+            margin: auto;
+        }
+
+        form {
+            background: #2a2a2a; /* Slightly lighter dark grey */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        input {
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #444; /* Darker border */
+            border-radius: 5px;
+            background-color: #333; /* Dark grey background for inputs */
+            color: #f0f0f0; /* Light text color */
+        }
+
+        button {
+            width: 100%;
+            margin: 5px 0;
+            background-color: #555; /* Medium grey */
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #777; /* Lighter grey on hover */
+        }
+    </style>
+</body>
+</html>

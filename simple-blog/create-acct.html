@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Create Account</h1>
+    </header>
+    <main>
+        <form id="create-account-form">
+            <label for="new-username">Username:</label>
+            <input type="text" id="new-username" required placeholder="Enter a username">
+            
+            <label for="new-password">Password:</label>
+            <input type="password" id="new-password" required placeholder="Enter a password">
+            
+            <button type="submit">Create Account</button>
+        </form>
+        <div id="create-message" style="color: red;"></div>
+        <a href="login.html">Back to Login</a>
+    </main>
+    <script>
+         document.getElementById('create-account-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('new-username').value.trim();
+            const password = document.getElementById('new-password').value.trim();
+
+            const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
+            const existingPasswords = JSON.parse(localStorage.getItem('passwords')) || [];
+
+            // Check if the username already exists
+            if (existingUsers.includes(username)) {
+                document.getElementById('create-message').textContent = "Username already taken. Please choose another.";
+                return;
+            }
+
+            // Store the new username and password
+            // Store the new username and password
+            existingUsers.push(username);
+            existingPasswords.push(password);
+            localStorage.setItem('users', JSON.stringify(existingUsers));
+            localStorage.setItem('passwords', JSON.stringify(existingPasswords));
+
+
+            document.getElementById('create-message').textContent = "Account created successfully! You can now log in.";
+            document.getElementById('new-username').value = ''; // Clear input field
+            document.getElementById('new-password').value = ''; // Clear input field
+        });
+    </script>
+</body>
+</html>
+
